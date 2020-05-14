@@ -88,6 +88,11 @@ Status match_int(Element data1,Element data2) {
   return num1 == num2 ? Success : Failure;
 }
 
+void int_add_one(Element number)
+{
+  *(int *)number = *(int *)number + 1;
+}
+
 void test_map() {
   char operation[] = "should map for each element";
   List_ptr list = create_list();
@@ -224,6 +229,22 @@ void test_reverse() {
   print_test_status(operation2, assert_number_list(result2, expected, 2));
 }
 
+void test_foreach() {
+
+  char operation1[] = "should do nothing for empty list";
+  List_ptr list = create_list();
+  int empty_array[] = {};
+  forEach(list, &int_add_one);
+  print_test_status(operation1, assert_number_list(list, empty_array, 0));
+  char operation2[] = "should do process for each element in the list";
+  int elements[] = {1, 2};
+  int expected[] = {2, 3};
+  add_to_list(list, &elements[0]);
+  add_to_list(list, &elements[1]);
+  forEach(list, &int_add_one);
+  print_test_status(operation2, assert_number_list(list, expected, 2));
+}
+
 int main()
 {
   test_create_list();
@@ -240,5 +261,6 @@ int main()
   test_remove_first_occurrence();
   test_remove_all_occurrences();
   test_reverse();
+  test_foreach();
   return 0;
 }
