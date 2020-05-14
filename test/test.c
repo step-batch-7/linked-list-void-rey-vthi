@@ -82,6 +82,12 @@ Element get_sum(Element data1,Element data2) {
   return void_result;
 }
 
+Status match_int(Element data1,Element data2) {
+  int num1 = *(int *)data1;
+  int num2 = *(int *)data2;
+  return num1 == num2 ? Success : Failure;
+}
+
 void test_map() {
   char operation[] = "should map for each element";
   List_ptr list = create_list();
@@ -115,6 +121,19 @@ void test_reduce() {
   print_test_status(operation,(*(int *)result)==3?Success:Failure);
 }
 
+void test_add_unique() {
+  char operation1[] = "should add if the given element is not found in the list";
+  List_ptr list = create_list();
+  int elements[] = {1, 2};
+  int unique_element = 3;
+  add_to_list(list, &elements[0]);
+  add_to_list(list, &elements[1]);
+  print_test_status(operation1, add_unique(list, &unique_element, &match_int));
+  char operation2[] = "should not add if the given element exist";
+  int existing_element = 2;
+  print_test_status(operation2, !add_unique(list, &existing_element, &match_int));
+}
+
 int main()
 {
   test_create_list();
@@ -124,5 +143,6 @@ int main()
   test_map();
   test_filter();
   test_reduce();
+  test_add_unique();
   return 0;
 }
