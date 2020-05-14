@@ -222,3 +222,20 @@ Element remove_first_occurrence(List_ptr list, Element element, Matcher matcher)
   }
   return NULL;
 }
+
+
+
+List_ptr remove_all_occurrences(List_ptr list, Element element, Matcher matcher)
+{
+  List_ptr removed_elements = create_list();
+  Element removed_element;
+  Node_ptr p_walk = list->first;
+  while (p_walk != NULL)
+  {
+    removed_element = remove_first_occurrence(list, element, matcher);
+    p_walk = p_walk->next;
+    if (removed_element)
+      add_to_list(removed_elements, removed_element);
+  }
+  return removed_elements;
+}

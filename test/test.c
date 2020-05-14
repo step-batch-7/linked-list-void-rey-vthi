@@ -190,6 +190,24 @@ void test_remove_first_occurrence() {
   print_test_status(operation2, *(int *)result2 == 2 ? Success : Failure);
 }
 
+void test_remove_all_occurrences() {
+  char operation1[] = "should not remove any element when the list is empty";
+  List_ptr list = create_list();
+  int element = 2;
+  int empty_array[] = {};
+  List_ptr result = remove_all_occurrences(list, &element, &match_int);
+  print_test_status(operation1, assert_number_list(result,empty_array,0));
+
+  char operation2[] = "should all the occurrences of the given element";
+  int elements[] = {2,1,2};
+  int expected[] = {2, 2};
+  add_to_list(list, &elements[0]);
+  add_to_list(list, &elements[1]);
+  add_to_list(list, &elements[2]);
+  List_ptr removed_list = remove_all_occurrences(list, &element, &match_int);
+  print_test_status(operation2, assert_number_list(removed_list,expected,2));
+}
+
 int main()
 {
   test_create_list();
@@ -204,5 +222,6 @@ int main()
   test_remove_from_end();
   test_remove_at();
   test_remove_first_occurrence();
+  test_remove_all_occurrences();
   return 0;
 }
