@@ -134,12 +134,18 @@ Element remove_from_start(List_ptr list) {
   {
     return NULL;
   }
-  Node_ptr new_first_node = list->first->next;
-  Element removed_element = list->first->element;
-  free(list->first);
-  list->first = new_first_node;
+   if (list->length == 1)
+  {
+    Element removed_element = list->first->element;
+    list->first = NULL;
+    list->last = NULL;
+    list->length = 0;
+    return removed_element;
+  }
+  Node_ptr removing_node = list->first;
+  list->first = list->first->next;
   list->length--;
-  return removed_element;
+  return removing_node->element;
 }
 
 Element remove_from_end(List_ptr list)
