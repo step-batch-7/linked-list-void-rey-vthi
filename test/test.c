@@ -1,20 +1,20 @@
 #include "../linkedlist.h"
 
-Status assert_number_list(List_ptr list,int *expected,int length) {
-  if (list->length != length)
-  {
-    return Failure;
-  }
-  Node_ptr p_walk = list->first;
-  for (int index = 0; index < length; index++)
-  {
-    int current_value = *(int *)p_walk->element;
-    if (current_value != expected[index])
+  Status assert_number_list(List_ptr list,int *expected,int length) {
+    if (list->length != length)
+    {
       return Failure;
-    p_walk = p_walk->next;
+    }
+    Node_ptr p_walk = list->first;
+    for (int index = 0; index < length; index++)
+    {
+      int current_value = *(int *)p_walk->element;
+      if (current_value != expected[index])
+        return Failure;
+      p_walk = p_walk->next;
+    }
+    return Success;
   }
-  return Success;
-}
 
 void  print_test_status(char operation[],int status) {
   if(status) {
@@ -67,6 +67,12 @@ Element int_increment(Element number)
   return void_result;
 }
 
+Status is_even(Element data)
+{
+  int number = *(int *)data;
+  return number % 2 == 0;
+}
+
 void test_map() {
   char operation[] = "should map for each element";
   List_ptr list = create_list();
@@ -78,6 +84,17 @@ void test_map() {
   print_test_status(operation, assert_number_list(result, expected, 2));
 }
 
+void test_filter() {
+  char operation[] = "should filter the elements based on conditions";
+  List_ptr list = create_list();
+  int elements[] = {1, 2};
+  int expected[] = {2};
+  add_to_list(list, &elements[0]);
+  add_to_list(list, &elements[1]);
+  List_ptr result = filter(list, &is_even);
+  print_test_status(operation, assert_number_list(result, expected, 1));
+}
+
 int main()
 {
   test_create_list();
@@ -85,5 +102,6 @@ int main()
   test_add_to_start();
   test_insert_at();
   test_map();
+  test_filter();
   return 0;
 }
