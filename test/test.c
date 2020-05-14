@@ -208,6 +208,22 @@ void test_remove_all_occurrences() {
   print_test_status(operation2, assert_number_list(removed_list,expected,2));
 }
 
+void test_reverse() {
+  char operation1[] = "should reverse empty list";
+  List_ptr list = create_list();
+  int empty_array[] = {};
+  List_ptr result1 = reverse(list);
+  print_test_status(operation1, assert_number_list(result1, empty_array, 0));
+
+  char operation2[] = "should reverse non-empty list";
+  int elements[] = {1, 2};
+  int expected[] = {2, 1};
+  add_to_list(list, &elements[0]);
+  add_to_list(list, &elements[1]);
+  List_ptr result2 = reverse(list);
+  print_test_status(operation2, assert_number_list(result2, expected, 2));
+}
+
 int main()
 {
   test_create_list();
@@ -223,5 +239,6 @@ int main()
   test_remove_at();
   test_remove_first_occurrence();
   test_remove_all_occurrences();
+  test_reverse();
   return 0;
 }
