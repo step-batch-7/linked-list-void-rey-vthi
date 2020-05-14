@@ -50,10 +50,20 @@ void test_add_to_start() {
   print_test_status(operation,assert_number_list(list, elements, 1));
 }
 
+void test_insert_at() {
+  char operation[] = "Should insert at given valid position";
+  List_ptr list = create_list();
+  int elements[] = {1, 2};
+  add_to_start(list, &elements[0]);
+  insert_at(list, &elements[1], 1);
+  print_test_status(operation, assert_number_list(list, elements, 2));
+}
+
 int main()
 {
   test_create_list();
   test_add_to_list();
   test_add_to_start();
+  test_insert_at();
   return 0;
 }
