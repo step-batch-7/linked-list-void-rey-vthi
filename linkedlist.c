@@ -78,3 +78,16 @@ Status insert_at(List_ptr list, Element element, int position)
   list->length++;
   return Success;
 }
+
+List_ptr map(List_ptr list, Mapper mapper)
+{
+  List_ptr new_list = create_list();
+  Node_ptr p_walk = list->first;
+  while (p_walk != NULL)
+  {
+    Element map_result = (*mapper)(p_walk->element);
+    add_to_list(new_list, map_result);
+    p_walk = p_walk->next;
+  }
+  return new_list;
+}

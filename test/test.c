@@ -59,11 +59,31 @@ void test_insert_at() {
   print_test_status(operation, assert_number_list(list, elements, 2));
 }
 
+Element int_increment(Element number)
+{
+  int* result = malloc(sizeof(int));
+  *result = *(int *)number + 1;
+  Element void_result = result;
+  return void_result;
+}
+
+void test_map() {
+  char operation[] = "should map for each element";
+  List_ptr list = create_list();
+  int elements[] = {1, 2};
+  int expected[] = {2, 3};
+  add_to_list(list, &elements[0]);
+  add_to_list(list, &elements[1]);
+  List_ptr result = map(list, &int_increment);
+  print_test_status(operation, assert_number_list(result, expected, 2));
+}
+
 int main()
 {
   test_create_list();
   test_add_to_list();
   test_add_to_start();
   test_insert_at();
+  test_map();
   return 0;
 }
