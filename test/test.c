@@ -175,6 +175,21 @@ void test_remove_at() {
   print_test_status(operation2, *(int *)result2 == 2 ? Success : Failure);
 }
 
+void test_remove_first_occurrence() {
+  char operation1[] = "should not remove if the list doesn't have the given element";
+  List_ptr list = create_list();
+  int element = 2;
+  Element result = remove_first_occurrence(list, &element,&match_int);
+  print_test_status(operation1, result == NULL ? Success : Failure);
+
+  char operation2[] = "should remove the first occurrence of the given element";
+  int elements[] = {1, 2};
+  add_to_list(list, &elements[0]);
+  add_to_list(list, &elements[1]);
+  Element result2 = remove_first_occurrence(list, &element,&match_int);
+  print_test_status(operation2, *(int *)result2 == 2 ? Success : Failure);
+}
+
 int main()
 {
   test_create_list();
@@ -188,5 +203,6 @@ int main()
   test_remove_from_start();
   test_remove_from_end();
   test_remove_at();
+  test_remove_first_occurrence();
   return 0;
 }

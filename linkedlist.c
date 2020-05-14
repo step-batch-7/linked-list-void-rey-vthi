@@ -193,3 +193,32 @@ Element remove_at(List_ptr list, int position) {
   free(p_walk);
   return removing_element;
 }
+
+Status does_exist(List_ptr list, Element element,Matcher matcher)
+{
+  Node_ptr p_walk = list->first;
+  while (p_walk != NULL)
+  {
+    if((*matcher)(element,p_walk->element)){
+      return Success;
+    }
+    p_walk = p_walk->next;
+  }
+  return Failure;
+}
+
+Element remove_first_occurrence(List_ptr list, Element element, Matcher matcher)
+{
+  if(!does_exist(list,element,matcher))
+    return NULL;
+  Node_ptr p_walk = list->first;
+  for(int position = 0; p_walk!=NULL; position++)
+  {
+    if((*matcher)(element,p_walk->element))
+    {
+      return remove_at(list,position);
+    }
+    p_walk = p_walk->next;
+  }
+  return NULL;
+}
