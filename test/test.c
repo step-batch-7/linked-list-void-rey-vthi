@@ -73,6 +73,15 @@ Status is_even(Element data)
   return number % 2 == 0;
 }
 
+Element get_sum(Element data1,Element data2) {
+  int* result = malloc(sizeof(int));
+  int num1 = *(int *)data1;
+  int num2 = *(int *)data2;
+  *result = num1 + num2;
+  Element void_result = result;
+  return void_result;
+}
+
 void test_map() {
   char operation[] = "should map for each element";
   List_ptr list = create_list();
@@ -95,6 +104,17 @@ void test_filter() {
   print_test_status(operation, assert_number_list(result, expected, 1));
 }
 
+void test_reduce() {
+  char operation[] = "should reduce the given list using the accumulator";
+  List_ptr list = create_list();
+  int elements[] = {1, 2};
+  int data = 0;
+  add_to_list(list, &elements[0]);
+  add_to_list(list, &elements[1]);
+  Element result = reduce(list,&data,&get_sum);
+  print_test_status(operation,(*(int *)result)==3?Success:Failure);
+}
+
 int main()
 {
   test_create_list();
@@ -103,5 +123,6 @@ int main()
   test_insert_at();
   test_map();
   test_filter();
+  test_reduce();
   return 0;
 }
