@@ -258,3 +258,17 @@ void forEach(List_ptr list, ElementProcessor processor) {
     p_walk = p_walk->next;
   }
 }
+
+Status clear_list(List_ptr list) {
+  Node_ptr p_walk = list->first;
+   while(p_walk != NULL){
+     Node_ptr next = p_walk->next;
+     free(p_walk);
+     p_walk = next;
+   }
+   list->first = NULL;
+   list->last = NULL;
+   list->length = 0;
+   return Success;
+}
+

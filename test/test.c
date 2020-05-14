@@ -245,6 +245,18 @@ void test_foreach() {
   print_test_status(operation2, assert_number_list(list, expected, 2));
 }
 
+void test_clear_list(){
+  char operation[] = "should clear the given list";
+  List_ptr list = create_list();
+  int elements[] = {1, 2};
+  add_to_list(list, &elements[0]);
+  add_to_list(list, &elements[1]);
+  int empty_array[] = {};
+  Status status = clear_list(list);
+  print_test_status(operation, status && assert_number_list(list, empty_array, 0));
+
+}
+
 int main()
 {
   test_create_list();
@@ -262,5 +274,6 @@ int main()
   test_remove_all_occurrences();
   test_reverse();
   test_foreach();
+  test_clear_list();
   return 0;
 }
