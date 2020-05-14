@@ -154,6 +154,15 @@ Element remove_from_end(List_ptr list)
   {
     return NULL;
   }
+  if (list->length == 1)
+  {
+    Element removed_element = list->first->element;
+    list->first = NULL;
+    list->last = NULL;
+    list->length = 0;
+    return removed_element;
+  }
+
   Node_ptr last_node = NULL;
   Node_ptr p_walk = list->first;
   while (p_walk->next != NULL)
