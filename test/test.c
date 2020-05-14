@@ -134,6 +134,22 @@ void test_add_unique() {
   print_test_status(operation2, !add_unique(list, &existing_element, &match_int));
 }
 
+void test_remove_from_start() {
+  char operation1[] = "should not remove any element when the list is empty";
+  List_ptr list = create_list();
+  Element result1 = remove_from_start(list);
+  print_test_status(operation1, result1 == NULL ?Success: Failure);
+
+  char operation2[] = "should remove the first element in the list";
+  int elements[] = {1, 2};
+  add_to_list(list, &elements[0]);
+  add_to_list(list, &elements[1]);
+  Element result2 = remove_from_start(list);
+  print_test_status(operation2, *(int *)result2 == 1 ?Success: Failure);
+
+
+}
+
 int main()
 {
   test_create_list();
@@ -144,5 +160,6 @@ int main()
   test_filter();
   test_reduce();
   test_add_unique();
+  test_remove_from_start();
   return 0;
 }

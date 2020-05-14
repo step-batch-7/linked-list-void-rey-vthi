@@ -128,3 +128,17 @@ Status add_unique(List_ptr list,Element element, Matcher matcher)
   }
     return add_to_list(list, element);
 }
+
+Element remove_from_start(List_ptr list) {
+  if(list->first == NULL)
+  {
+    return NULL;
+  }
+  Node_ptr new_first_node = list->first->next;
+  Element removed_element = list->first->element;
+  free(list->first);
+  list->first = new_first_node;
+  list->length--;
+  return removed_element;
+}
+
