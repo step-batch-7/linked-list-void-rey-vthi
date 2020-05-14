@@ -59,11 +59,15 @@ Status insert_at(List_ptr list, Element element, int position)
   {
     return Failure;
   }
-  Node_ptr new_node = create_node(element);
   if (position == 0)
   {
     return add_to_start(list, element);
   }
+  if (position == list->length)
+  {
+    return add_to_list(list, element);
+  }
+  Node_ptr new_node = create_node(element);
   Node_ptr p_walk = list->first;
   Node_ptr previous_node = list->first;
   int counter = 0;
