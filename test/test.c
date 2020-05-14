@@ -162,6 +162,19 @@ void test_remove_from_end() {
   print_test_status(operation2, *(int *)result2 == 2 ? Success : Failure);
 }
 
+void test_remove_at() {
+  char operation1[] = "should not remove any element when the position is invalid";
+  List_ptr list = create_list();
+  Element result = remove_at(list, 4);
+  print_test_status(operation1, result == NULL ? Success : Failure);
+  char operation2[] = "should remove element when the position is valid";
+  int elements[] = {1, 2};
+  add_to_list(list, &elements[0]);
+  add_to_list(list, &elements[1]);
+  Element result2 = remove_at(list, 1);
+  print_test_status(operation2, *(int *)result2 == 2 ? Success : Failure);
+}
+
 int main()
 {
   test_create_list();
@@ -174,5 +187,6 @@ int main()
   test_add_unique();
   test_remove_from_start();
   test_remove_from_end();
+  test_remove_at();
   return 0;
 }
