@@ -146,8 +146,20 @@ void test_remove_from_start() {
   add_to_list(list, &elements[1]);
   Element result2 = remove_from_start(list);
   print_test_status(operation2, *(int *)result2 == 1 ?Success: Failure);
+}
 
+void test_remove_from_end() {
+  char operation1[] = "should not remove any element when list is empty";
+  List_ptr list = create_list();
+  Element result1 = remove_from_start(list);
+  print_test_status(operation1, result1 == NULL ?Success: Failure);
 
+  char operation2[] = "should remove the last element in the list";
+  int elements[] = {1, 2};
+  add_to_list(list, &elements[0]);
+  add_to_list(list, &elements[1]);
+  Element result2 = remove_from_end(list);
+  print_test_status(operation2, *(int *)result2 == 2 ? Success : Failure);
 }
 
 int main()
@@ -161,5 +173,6 @@ int main()
   test_reduce();
   test_add_unique();
   test_remove_from_start();
+  test_remove_from_end();
   return 0;
 }
